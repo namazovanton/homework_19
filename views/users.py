@@ -17,7 +17,7 @@ class UsersView(Resource):
 
     def post(self):
         data = request.json
-        user = user_service.create(data)
+        user_service.create(data)
         return "", 201, {"location": f"/users/{user.id}"}
 
 
@@ -25,6 +25,6 @@ class UsersView(Resource):
 class UserView(Resource):
     @admin_required
     def delete(self, uid):
-        users = user_service.delete(uid)
+        user_service.delete(uid)
         return "", 204
 

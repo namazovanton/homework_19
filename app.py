@@ -2,6 +2,7 @@ from flask import Flask
 from flask_restx import Api
 
 from config import Config
+from dao.model.user import User
 from setup_db import db
 from views.auth import auth_ns
 from views.directors import director_ns
@@ -25,6 +26,14 @@ def configure_app(application: Flask):
     api.add_namespace(movie_ns)
     api.add_namespace(user_ns)
     api.add_namespace(auth_ns)
+    with application.app_context():
+        u1 = User(username="vasya", password="my_little_pony", role="user")
+        u2 = User(username="misha", password="qwerty", role="user")
+        u3 = User(username="oleg", password="P@ssw0rd", role="admin")
+        db.create_all()
+
+        with db.session.begin():
+            db.session.add_all([u1, u2, u3])
 
 
 app = create_app(Config())
