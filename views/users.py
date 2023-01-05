@@ -17,7 +17,7 @@ class UsersView(Resource):
 
     def post(self):
         data = request.json
-        user_service.create(data)
+        user = user_service.create(data)
         return "", 201, {"location": f"/users/{user.id}"}
 
 

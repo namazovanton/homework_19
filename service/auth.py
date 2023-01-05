@@ -15,7 +15,7 @@ class AuthService:
     def generate_tokens(self, username, password, is_refresh=False):
         user = self.user_service.get_by_username(username)
 
-        if user in None:
+        if user is None:
             raise abort(404)
         if not is_refresh:
             if not self.user_service.compare_passwords(user.password, password):
